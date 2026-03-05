@@ -63,14 +63,14 @@ final class csv_import_test extends \advanced_testcase {
         $entitycount = $DB->count_records('local_entities');
         $this->assertGreaterThan(0, $entitycount);
 
-        $citywave = $DB->get_record('local_entities', ['shortname' => 'CITYWAVE']);
+        $citywave = $DB->get_record('local_entities', ['shortname' => 'MYIERFI']);
         $this->assertNotFalse($citywave);
 
-        $address = $DB->get_record('local_entities_address', ['entityidto' => $citywave->id, 'city' => 'Wien']);
+        $address = $DB->get_record('local_entities_address', ['entityidto' => $citywave->id, 'city' => 'Marseille']);
         $this->assertNotFalse($address);
-        $this->assertSame('Schwarzenbergplatz', $address->streetname);
+        $this->assertSame('Mqierecstrlße 25', $address->streetname);
 
         $ent = entities::list_all_entities();
-        $this->assertCount(370, $ent);
+        $this->assertCount(150, $ent);
     }
 }
