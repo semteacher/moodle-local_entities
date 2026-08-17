@@ -50,6 +50,7 @@ final class entities_test extends \advanced_testcase {
      */
     private function make_entity(string $name, int $parentid = 0, ?int $sortorder = null): int {
         global $DB;
+        $this->setAdminUser();
         $gen = $this->getDataGenerator()->get_plugin_generator('local_entities');
         $id = $gen->create_entities([
             'name' => $name,
