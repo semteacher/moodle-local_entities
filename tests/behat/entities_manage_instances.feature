@@ -14,10 +14,10 @@ Feature: Baisc functionality of local_entities works as expected
     And the following config values are set as admin:
       | categories | 999 | local_entities |
     And the following "local_entities > entities" exist:
-      | name    | shortname | pricefactor | maxallocation | openinghours |
-      ##| Entity1 | entity1   | 1           | 10            | [{"title":"openinghours","daysOfWeek":"2,5,6","startTime":"10:11","endTime":"15:12"}] |
-      | Entity1 | entity1   | 1           | 10            |              |
-      | Entity2 | entity2   | 2           | 20            |              |
+      | name    | shortname | pricefactor | maxallocation | daysofweek | starthours | startminutes | endhours | endminutes |
+      | Entity1 | entity1   | 1           | 10            | [["1","2","6","7"],["2","3","4"]] |["13","6"] | ["0","0"] | ["16","11"] | ["0","0"] |
+      ##| Entity1 | entity1   | 1           | 10            |              | | | | |
+      | Entity2 | entity2   | 2           | 20            |              | | | | |
     And I change viewport size to "1366x10000"
 
   @javascript
@@ -27,7 +27,14 @@ Feature: Baisc functionality of local_entities works as expected
     ## Validate existing entities
     And I should see "Entity1" in the "#region-main" "css_element"
     And I should see "Entity2" in the "#region-main" "css_element"
+    And I click on "View" "link"
+    And I click on "Open calendar" "link"
+    And I switch to a second window
+    And "//div[@id='entity-calendar']" "xpath_element" should exist
+    And "//div[@id='entity-calendar']//div[contains(@class, 'fc-header-toolbar')]" "xpath_element" should exist
+    And I wait "30" seconds
     ## Create new entirty as child entity of Entity1
+    And I visit "/local/entities/entities.php"
     And I follow "Add entity"
     And I expand all fieldsets
     And I set the field "Name" to "E1Child1"

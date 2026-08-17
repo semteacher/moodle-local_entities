@@ -76,7 +76,7 @@ class get_entity_calendardata extends external_api {
         $entity = entity::load($params['id']);
         $openinghours = $entity->__get('openinghours') ?? '[]';
         $openinghours = json_decode($openinghours, false) ?? [];
-
+        //return print_r($entity); // DEBUG
         $openinghours = entities::prepare_datearray_for_calendar($openinghours, '#64a44e');
         $relationdata = entities::get_all_dates_for_entity($params['id']) ?? [];
         $relationdata = entities::prepare_datearray_for_calendar($relationdata, 'red');
